@@ -18,7 +18,7 @@ public class ClickToRun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //running = mNavMeshAgent.isStopped;
+        running = mNavMeshAgent.isStopped;
         
         Vector3 standing = new Vector3(0,0,0);
         if(mNavMeshAgent.velocity == standing)
@@ -30,7 +30,7 @@ public class ClickToRun : MonoBehaviour
             running = true;
         }
 
-        //anim.SetBool("isRunning", running);
+        anim.SetBool("isRunning", running);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
