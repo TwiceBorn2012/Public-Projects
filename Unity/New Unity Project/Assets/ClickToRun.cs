@@ -8,6 +8,7 @@ public class ClickToRun : MonoBehaviour
     private NavMeshAgent mNavMeshAgent;
     private bool running;
     private Animator anim;
+    private Ray ray;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,13 +33,36 @@ public class ClickToRun : MonoBehaviour
 
         anim.SetBool("isRunning", running);
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //RaycastHit hit;
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    if(Physics.Raycast(ray, out hit, 100))
+        //    {
+        //        Debug.Log(hit);
+        //        mNavMeshAgent.destination = hit.point;
+        //    }
+        //}
+
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
+        //RaycastHit[]  hits;
+
         if (Input.GetMouseButtonDown(0))
         {
-            if(Physics.Raycast(ray, out hit, 100))
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit[] hits;
+            hits = Physics.RaycastAll(ray);
+            int i = 0;
+            while (i < hits.Length)
             {
-                mNavMeshAgent.destination = hit.point;
+                RaycastHit hit = hits[i];
+                if(hit.collider.gameObject.tag == "Ground")
+                {
+                    mNavMeshAgent.destination = hit.point;
+                }
+                //Debug.Log(hit.collider.gameObject.name);
+                i++;
             }
         }
 

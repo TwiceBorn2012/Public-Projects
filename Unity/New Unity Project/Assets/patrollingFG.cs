@@ -9,7 +9,6 @@ public class patrollingFG : MonoBehaviour
     public GameObject giant;
     private float timer = 0.0f;
     private float waitTime = 3.0f;
-    private string direction = "left";
     public GameObject player;
     private NavMeshAgent fg;
     private NavMeshAgent target;
