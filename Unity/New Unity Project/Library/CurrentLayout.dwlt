@@ -42,14 +42,14 @@ MonoBehaviour:
     y: 396
     width: 232
     height: 671
-  m_MinSize: {x: 102, y: 124}
-  m_MaxSize: {x: 4002, y: 4024}
-  m_ActualView: {fileID: 21}
+  m_MinSize: {x: 232, y: 274}
+  m_MaxSize: {x: 10002, y: 10024}
+  m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
   - {fileID: 21}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -71,10 +71,10 @@ MonoBehaviour:
     y: 0
     width: 232
     height: 1067
-  m_MinSize: {x: 202, y: 348}
-  m_MaxSize: {x: 4002, y: 8048}
+  m_MinSize: {x: 232, y: 498}
+  m_MaxSize: {x: 10002, y: 14048}
   vertical: 1
-  controlID: 55
+  controlID: 30
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -96,10 +96,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 1067
-  m_MinSize: {x: 683, y: 348}
-  m_MaxSize: {x: 12008, y: 8048}
+  m_MinSize: {x: 713, y: 498}
+  m_MaxSize: {x: 18008, y: 14048}
   vertical: 0
-  controlID: 87
+  controlID: 110
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -241,8 +241,8 @@ MonoBehaviour:
     y: 0
     width: 1581
     height: 1067
-  m_MinSize: {x: 406, y: 348}
-  m_MaxSize: {x: 8006, y: 8048}
+  m_MinSize: {x: 436, y: 498}
+  m_MaxSize: {x: 14006, y: 14048}
   vertical: 0
   controlID: 88
 --- !u!114 &11
@@ -305,14 +305,14 @@ MonoBehaviour:
     m_KeySerializationHelper:
     - {fileID: 1107739741968894360, guid: 47f29fac49912c84b964c579169fe933, type: 2}
     m_ValueSerializationHelper:
-    - e00: 0.7415144
+    - e00: 0.9633333
       e01: 0
       e02: 0
-      e03: 84.14911
+      e03: -33.166656
       e10: 0
-      e11: 0.7415144
+      e11: 0.9633333
       e12: 0
-      e13: 72.77191
+      e13: 421.635
       e20: 0
       e21: 0
       e22: 1
@@ -469,20 +469,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets
+    - Assets/asoliddev - Low Poly Fantasy Warrior/Prefabs
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/asoliddev - Low Poly Fantasy Warrior/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Public-Projects\Unity\New Unity Project
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 80280000
-    m_LastClickedID: 10368
-    m_ExpandedIDs: 00000000802800001a2d0000302d00004c3000009c30000000ca9a3b
+    m_SelectedIDs: d0310000
+    m_LastClickedID: 12752
+    m_ExpandedIDs: 0000000080280000ee2800001a2d0000302d00004c3000009c30000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -535,10 +535,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 02340000
-    m_LastClickedInstanceID: 13314
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c62300000000000052400000fa300000
+    m_ExpandedInstanceIDs: c62300000000000052400000fa30000082300000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -562,7 +562,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 1081}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 64
   m_DirectoriesAreaWidth: 110
 --- !u!114 &17
@@ -629,23 +629,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 02340000
-      m_LastClickedID: 13314
-      m_ExpandedIDs: b0fbffffc03300000234000014340000
+      m_SelectedIDs: a4fbffff
+      m_LastClickedID: -1116
+      m_ExpandedIDs: 9efbffffa4fbffffa6fbffffb0fbffffa8330000b033000024340000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: Low Poly Warrior
+        m_OriginalName: Low Poly Warrior
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: 13224
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 6}
       m_SearchString: 
@@ -687,9 +687,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 21.359383, y: 17.233364, z: -28.392921}
+    m_Target: {x: 1.1172042, y: -0.30803275, z: -22.010067}
     speed: 2
-    m_Value: {x: 21.359383, y: 17.233364, z: -28.392921}
+    m_Value: {x: 1.1172042, y: -0.30803275, z: -22.010067}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -717,13 +717,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.30788463, y: 0.41805682, z: -0.15307741, w: -0.8408347}
+    m_Target: {x: -0.10621029, y: 0.89102435, z: -0.2727025, w: -0.34702802}
     speed: 2
-    m_Value: {x: -0.30788463, y: 0.41805682, z: -0.15307741, w: -0.8408347}
+    m_Value: {x: -0.10621029, y: 0.89102435, z: -0.2727025, w: -0.34702802}
   m_Size:
-    m_Target: 5.739303
+    m_Target: 9.061087
     speed: 2
-    m_Value: 5.739303
+    m_Value: 9.061087
   m_Ortho:
     m_Target: 0
     speed: 2
