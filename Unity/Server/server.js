@@ -1,5 +1,8 @@
 var io = require('socket.io')(process.env.PORT || 3000);
 var shortid = require('shortid');
+var $ = require('jQuery');
+var Request = require("request");
+var http = require('http');
 
 console.log('server started');
 
@@ -8,7 +11,12 @@ var players = [];
 io.on('connection', function (socket){
     console.log('connected');
     socket.on('auth', function (data) {
-        console.log(data);
+        console.log('incoming data ' + data['user']);
+        Request('http://btsdev.azurewebsites.net/WebService.asmx/CheckUserAuthTest?user=' + data['user'] + '&password=' + data['pass'], { json: true }, (err, res, body) => {
+          if (err) { return console.log(err); }
+          console.log(body);
+        });
+
         data.message = "Nice try authenticating";
         socket.emit('auth', data);
     })
