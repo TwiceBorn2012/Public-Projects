@@ -82,12 +82,16 @@
     <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
     <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
     <Compile Include="Assets\Scripts\Character\CameraControl.cs" />
+    <Compile Include="Assets\Scripts\Character\ClickFollow.cs" />
     <Compile Include="Assets\Scripts\Character\NavigatePosition.cs" />
     <Compile Include="Assets\Scripts\Character\NetworkMove.cs" />
     <Compile Include="Assets\Scripts\Character\ScreenClicker.cs" />
     <Compile Include="Assets\Scripts\Environment\ClickMove.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IClickable.cs" />
     <Compile Include="Assets\Scripts\Resources\copperRockBehavior.cs" />
     <Compile Include="Assets\Scripts\SocketIO\Network.cs" />
+    <Compile Include="Assets\Scripts\SocketIO\NetworkLogin.cs" />
     <Compile Include="Assets\SocketIO\JSONObject\JSONObject.cs" />
     <Compile Include="Assets\SocketIO\JSONObject\JSONTemplates.cs" />
     <Compile Include="Assets\SocketIO\JSONObject\VectorTemplates.cs" />
@@ -169,6 +173,7 @@
     <Compile Include="Assets\SocketIO\WebsocketSharp\WebSocketState.cs" />
     <Compile Include="Assets\SocketIO\WebsocketSharp\WebSocketStream.cs" />
     <None Include="Assets\SocketIO\JSONObject\readme.txt" />
+    <None Include="Assets\greyRoadStudio\LowPolyTreePack\readme.txt" />
     <None Include="Assets\SocketIO\Readme.txt" />
     <None Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\SuperCharacterController\README.txt" />
     <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />

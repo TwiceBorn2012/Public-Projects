@@ -21,13 +21,9 @@ public class NetworkMove : MonoBehaviour
 
     public void OnMove (Vector3 position)
     {
-        // Send position to server
-        //Debug.Log("sending position " + VectorToJSON(position));
-        socket.Emit("move", new JSONObject(VectorToJSON(position)));
+        socket.Emit("move", new JSONObject(Network.VectorToJSON(position)));
+        Debug.Log("player is moving" + Network.VectorToJSON(position));
+        
     }
 
-    string VectorToJSON (Vector3 vector)
-    {
-        return string.Format(@"{{""x"":""{0}"", ""y"":""{1}""}}", vector.x, vector.z);
-    }
 }
