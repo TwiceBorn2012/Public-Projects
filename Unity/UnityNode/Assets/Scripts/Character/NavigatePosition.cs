@@ -7,11 +7,11 @@ public class NavigatePosition : MonoBehaviour
 {
     NavMeshAgent agent;
     private bool moving = false;
-    private float brakingDistance = 1.5f;
-    // Start is called before the first frame update
-    void Start()
+    private float brakingDistance = PlayerCharacter.brakingDistance;
+
+    public void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        agent = GameObject.FindGameObjectWithTag("Player").GetComponent<NavMeshAgent>();
     }
 
     public void NavigatTo(Vector3 position)

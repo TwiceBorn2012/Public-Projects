@@ -84,12 +84,16 @@
     <Compile Include="Assets\Scripts\Character\CameraControl.cs" />
     <Compile Include="Assets\Scripts\Character\ClickFollow.cs" />
     <Compile Include="Assets\Scripts\Character\NavigatePosition.cs" />
+    <Compile Include="Assets\Scripts\Character\NetworkEntity.cs" />
     <Compile Include="Assets\Scripts\Character\NetworkMove.cs" />
+    <Compile Include="Assets\Scripts\Character\PlayerCharacter.cs" />
     <Compile Include="Assets\Scripts\Character\ScreenClicker.cs" />
     <Compile Include="Assets\Scripts\Environment\ClickMove.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IClickable.cs" />
+    <Compile Include="Assets\Scripts\Resources\ClickResource.cs" />
     <Compile Include="Assets\Scripts\Resources\copperRockBehavior.cs" />
+    <Compile Include="Assets\Scripts\Resources\Spawner.cs" />
     <Compile Include="Assets\Scripts\SocketIO\Network.cs" />
     <Compile Include="Assets\Scripts\SocketIO\NetworkLogin.cs" />
     <Compile Include="Assets\SocketIO\JSONObject\JSONObject.cs" />
@@ -175,6 +179,7 @@
     <None Include="Assets\SocketIO\JSONObject\readme.txt" />
     <None Include="Assets\greyRoadStudio\LowPolyTreePack\readme.txt" />
     <None Include="Assets\SocketIO\Readme.txt" />
+    <None Include="Assets\JsonDotNet\link.xml" />
     <None Include="Assets\RPG Character Animation Pack FREE\SuperCharacterController\SuperCharacterController\README.txt" />
     <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
@@ -401,6 +406,9 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>C:/Public-Projects/Unity/UnityNode/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:/Public-Projects/Unity/UnityNode/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
