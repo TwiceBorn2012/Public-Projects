@@ -13,8 +13,11 @@ public class Network : MonoBehaviour
 
     public GameObject myPlayer;
 
+    public string sGUID;
+
     void Start()
     {
+        sGUID = myPlayer.GetComponent<NetworkEntity>().GetSGUID();
         socket = GetComponent<SocketIOComponent>();
         socket.On("open", OnConnected);
         socket.On("spawn", OnSpawned);
@@ -22,6 +25,13 @@ public class Network : MonoBehaviour
         socket.On("disconnected", OnDisconnect);
         socket.On("requestPosition", OnRequestPosition);
         socket.On("updatePosition", OnUpdatePosition);
+    }
+
+    void OnConnected ()
+    {
+        // Register session with server.js
+        // send current position
+        //  
     }
 
     void OnMove(SocketIOEvent obj)

@@ -7,7 +7,7 @@ public class Spawner : MonoBehaviour
     public GameObject playerPrefab;
     Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
 
-    public GameObject SpawnPlayer(string id)
+    public GameObject SpawnPlayer(string id, string position)
     {
         var player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 

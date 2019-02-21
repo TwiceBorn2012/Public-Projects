@@ -10,9 +10,12 @@ console.log('server started');
 var players = [];
 
 io.on('connection', function (socket){
-    console.log('connected');
+    console.log('New Client Connected');
     
-    var thisplayerId = shortid.generate();
+    // Send emit for open to get SGUID to name socket
+    // Store in players dictionary with position
+    // Go through stored dictionary and send spawn to each client
+    // Skip current client
     
     players.push(thisplayerId);
     
@@ -58,15 +61,17 @@ io.on('connection', function (socket){
     })
     
     socket.on('disconnect', function () {
-       console.log('disconnected'); 
-    });
-    //socket.on('disconnect', function () {
-        //console.log('client disconnected: ' + thisplayerId);
+        console.log('client disconnected: ');
+        
+        // Remove session from store
+        // Remove session from SQL server
+        // Emit to all clients to despawn player
+        
         //for( var i = 0; i < players.length; i++){ 
-          // if ( players[i] === thisplayerId) {
+           //if ( players[i] === thisplayerId) {
              //players.splice(i,1)
            //}
-        //}
+        }
         //socket.broadcast.emit('disconnected', {id: thisplayerId });
-    //})
+    })
 })
