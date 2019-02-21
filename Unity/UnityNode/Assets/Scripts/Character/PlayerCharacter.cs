@@ -32,10 +32,10 @@ public class PlayerCharacter : MonoBehaviour
     public void UpdateInventory()
     {
         //socket.Emit("updatePlayerInventory", new JSONObject(string.Format(@"{{""id"":""{0}""}}", playerAccount)));
-        StartCoroutine(GetRequest("http://btsdev.azurewebsites.net/WebService.asmx/UpdatePlayerInventory?aid=" + playerAccount));
+        StartCoroutine(UpdateInventroyReq("http://btsdev.azurewebsites.net/WebService.asmx/UpdatePlayerInventory?aid=" + playerAccount));
     }
 
-    IEnumerator GetRequest(string uri)
+    IEnumerator UpdateInventroyReq(string uri)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
@@ -80,6 +80,83 @@ public class PlayerCharacter : MonoBehaviour
             }
         }
     }
+
+    public void UpdatePosition()
+    {
+        //socket.Emit("updatePlayerInventory", new JSONObject(string.Format(@"{{""id"":""{0}""}}", playerAccount)));
+        StartCoroutine(UpdatePositionReq("http://btsdev.azurewebsites.net/WebService.asmx/UpdatePlayerPosition?aid=" + playerAccount));
+    }
+
+    IEnumerator UpdatePositionReq(string uri)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.isNetworkError)
+            {
+                Debug.Log("Error: " + webRequest.error);
+            }
+            else
+            {
+
+            }
+        }
+    }
+
+    public void GetPlayerStartPosition()
+    {
+        //socket.Emit("updatePlayerInventory", new JSONObject(string.Format(@"{{""id"":""{0}""}}", playerAccount)));
+        StartCoroutine(GetPlayerStartPositionReq("http://btsdev.azurewebsites.net/WebService.asmx/UpdatePlayerInventory?aid=" + playerAccount));
+    }
+
+    IEnumerator GetPlayerStartPositionReq(string uri)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            string[] pages = uri.Split('/');
+            int page = pages.Length - 1;
+
+            if (webRequest.isNetworkError)
+            {
+                Debug.Log(pages[page] + ": Error: " + webRequest.error);
+            }
+            else
+            {
+                string response = System.Text.Encoding.UTF8.GetString(webRequest.downloadHandler.data);
+                playerInventory = JsonConvert.DeserializeObject<List<InventorySlot>>(response);
+
+                for (int i = 0; i < 40; i++)
+                {
+                    if (playerInventory[i].ItemHash.Length > 0)
+                    {
+                        GameObject target = canvas.transform.GetChild(0).GetChild(i).gameObject;
+                        GameObject slotObj = Instantiate(copperOrderPrfab, canvas.transform);
+                        slotObj.transform.SetParent(target.transform, false);
+                    }
+
+                }
+
+                //JavaScriptSerializer js = new JavaScriptSerializer();
+                //Person[] persons = js.Deserialize<Person[]>(json);
+
+                //string response = System.Text.Encoding.UTF8.GetString(webRequest.downloadHandler.data);
+                //Debug.Log(JsonConvert.DeserializeObject<InventorySlot>(response));
+
+                //JSONObject invJSON = new JSONObject(webRequest.downloadHandler.text);
+                //Debug.Log(invJSON);
+                //
+
+                //Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
+                //playerInventory = webRequest.downloadHandler.data;
+            }
+        }
+    }
+
 
 
     public class Account
