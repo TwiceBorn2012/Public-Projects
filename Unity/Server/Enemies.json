@@ -1,0 +1,33 @@
+{
+    "turtles":[
+        {
+            "name": "Leo",
+            "maxCharge" : "10",
+            "spawnPointx": "0.0",
+            "spawnPointy": "0.0",
+            "spawnPointz": "2.0"
+        },
+        {
+            "name": "Ralph",
+            "maxCharge" : "10",
+            "spawnPointx": "0.0",
+            "spawnPointy": "0.0",
+            "spawnPointz": "-2.0"
+        },
+        {
+            "name": "Don",
+            "maxCharge" : "10",
+            "spawnPointx": "-2.0",
+            "spawnPointy": "0.0",
+            "spawnPointz": "0.0"
+        },
+        {
+            "name": "Mike",
+            "maxCharge" : "10",
+            "spawnPointx": "2.0",
+            "spawnPointy": "0.0",
+            "spawnPointz": "0.0"
+        }
+    ]
+}
+

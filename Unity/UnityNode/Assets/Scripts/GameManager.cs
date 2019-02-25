@@ -8,7 +8,6 @@ using UnityEngine.Networking;
 
 public class GameManager : MonoBehaviour
 {
-    public SocketIOComponent socket;
     public Text uField;
     public Text pField;
     public GameObject passField;
@@ -42,9 +41,11 @@ public class GameManager : MonoBehaviour
             else
             {
                 JSONObject response = new JSONObject(webRequest.downloadHandler.text);
-
-                netEnt.GetComponent<NetworkEntity>().UpdateSGUID(response.ToString());
-
+                //Debug.Log(response);
+                netEnt.GetComponent<NetworkEntity>().UpdateSGUID(response["Hash"].ToString());
+                netEnt.GetComponent<NetworkEntity>().UpdatePlayerUN(response["UserName"].ToString());
+                Debug.Log("Welcome " + response["UserName"].ToString() + "!");
+                netEnt.GetComponent<NetworkEntity>().UpdatePlayerSP(new Vector3(float.Parse(response["Positionx"].ToString().Replace("\"", "")), float.Parse(response["Positiony"].ToString().Replace("\"", "")), float.Parse(response["Positionz"].ToString().Replace("\"", ""))));
                 GoToScene();
 
             }

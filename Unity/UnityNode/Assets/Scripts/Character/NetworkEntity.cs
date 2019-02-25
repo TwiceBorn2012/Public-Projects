@@ -7,6 +7,9 @@ using System.Web;
 public class NetworkEntity : MonoBehaviour
 {
     public static string SGUID = "";
+    public static string playerUN = "";
+    public static Vector3 startingPoint = new Vector3();
+
 
     public void UpdateSGUID(string sGUID)
     {
@@ -17,4 +20,25 @@ public class NetworkEntity : MonoBehaviour
     {
         return SGUID;
     }
+
+    public void UpdatePlayerUN(string un)
+    {
+        playerUN = un.Replace("\"", "");
+    }
+
+    public string GetPlayerUN()
+    {
+        return playerUN;
+    }
+
+    public void UpdatePlayerSP(Vector3 pos)
+    {
+        startingPoint = pos;
+    }
+
+    public Vector3 GetPlayerSP()
+    {
+        return startingPoint;
+    }
+
 }

@@ -5421,18 +5421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0adb99d90b7b1c44af2ef0b8566a893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1923932252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1923932250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0adb99d90b7b1c44af2ef0b8566a893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1923932258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5451,8 +5439,6 @@ MonoBehaviour:
   canvas: {fileID: 1972577640}
   copperOrderPrfab: {fileID: 4468259957106954741, guid: 44a4496f442873c48be48d4100d67ed5,
     type: 3}
-  netEnt: {fileID: 0}
-  sGUID: 
 --- !u!1 &1928078252
 GameObject:
   m_ObjectHideFlags: 0
@@ -5986,9 +5972,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c840266a8cde70c48876436a01dbcf64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 623898458}
+  playerPrefab: {fileID: 1006556443476781182, guid: 0761f2e76e1d7b04ab4e2612c2a9208e,
+    type: 3}
   myPlayer: {fileID: 1923932250}
-  netEnt: {fileID: 1923932250}
+  sGUID: 
+  playerUN: 
 --- !u!1 &2121807707
 GameObject:
   m_ObjectHideFlags: 0

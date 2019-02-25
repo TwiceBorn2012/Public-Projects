@@ -7,8 +7,8 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.AI;
 using System.Data;
-using Newtonsoft.Json;
 using System.Globalization;
+using System;
 
 public class PlayerCharacter : MonoBehaviour
 {
@@ -21,14 +21,19 @@ public class PlayerCharacter : MonoBehaviour
     public GameObject copperOrderPrfab;
     private float timer = 0.0f;
     private float waitTime = 5.0f;
-    public string sGUID;
+    private string sGUID;
+    private string playerUN;
+    private Vector3 startingL;
 
     void Start()
     {
         sGUID = GetComponent<NetworkEntity>().GetSGUID();
+        playerUN = GetComponent<NetworkEntity>().GetPlayerUN();
+        startingL = GetComponent<NetworkEntity>().GetPlayerSP();
+
         UpdateInventory();
         GetPlayerStartPosition();
-        // Emit player location to Server
+
     }
 
     void Update()
@@ -38,7 +43,6 @@ public class PlayerCharacter : MonoBehaviour
         if (timer > waitTime)
         {
             UpdatePosition();
-            Debug.Log("Stored position");
             timer = 0.0f;
         }
     }
@@ -51,7 +55,6 @@ public class PlayerCharacter : MonoBehaviour
 
     public void UpdateInventory()
     {
-        //socket.Emit("updatePlayerInventory", new JSONObject(string.Format(@"{{""id"":""{0}""}}", )));
         StartCoroutine(UpdateInventroyReq("http://btsdev.azurewebsites.net/WebService.asmx/UpdatePlayerInventory?sGUID=" + sGUID));
     }
 
@@ -59,7 +62,6 @@ public class PlayerCharacter : MonoBehaviour
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
-            // Request and wait for the desired page.
             yield return webRequest.SendWebRequest();
 
             string[] pages = uri.Split('/');
@@ -71,33 +73,35 @@ public class PlayerCharacter : MonoBehaviour
             }
             else
             {
-                string response = System.Text.Encoding.UTF8.GetString(webRequest.downloadHandler.data);
-                Debug.Log(response);
-                playerInventory = JsonConvert.DeserializeObject<List<InventorySlot>>(response);
-
+                string response = webRequest.downloadHandler.text.ToString();
+                JSONObject top = new JSONObject(response.TrimStart('"').TrimEnd('"'));
                 for (int i = 0; i < 40; i++)
                 {
-                    if (playerInventory[i].ItemHash.Length > 0)
+                    JSONObject test = new JSONObject(top[i].ToString().Substring(11, top[i].ToString().Length - 12));
+                    if (test[1].ToString().TrimStart('"').TrimEnd('"').Length > 0)
                     {
                         GameObject target = canvas.transform.GetChild(0).GetChild(i).gameObject;
                         GameObject slotObj = Instantiate(copperOrderPrfab, canvas.transform);
                         slotObj.transform.SetParent(target.transform, false);
                     }
-
                 }
-                
-                //JavaScriptSerializer js = new JavaScriptSerializer();
-                //Person[] persons = js.Deserialize<Person[]>(json);
 
-                //string response = System.Text.Encoding.UTF8.GetString(webRequest.downloadHandler.data);
-                //Debug.Log(JsonConvert.DeserializeObject<InventorySlot>(response));
 
-                //JSONObject invJSON = new JSONObject(webRequest.downloadHandler.text);
-                //Debug.Log(invJSON);
-                //
 
-                //Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
-                //playerInventory = webRequest.downloadHandler.data;
+
+                //playerInventory = JsonConvert.DeserializeObject<List<InventorySlot>>(response);
+
+                //for (int i = 0; i < 40; i++)
+                //{
+                //    if (playerInventory[i].ItemHash.Length > 0)
+                //    {
+                //        GameObject target = canvas.transform.GetChild(0).GetChild(i).gameObject;
+                //        GameObject slotObj = Instantiate(copperOrderPrfab, canvas.transform);
+                //        slotObj.transform.SetParent(target.transform, false);
+                //    }
+
+                //}
+
             }
         }
     }
@@ -142,7 +146,6 @@ public class PlayerCharacter : MonoBehaviour
             // Request and wait for the desired page.
             yield return webRequest.SendWebRequest();
 
-
             if (webRequest.isNetworkError)
             {
                 Debug.Log("Error: " + webRequest.error);
@@ -156,20 +159,28 @@ public class PlayerCharacter : MonoBehaviour
                 Vector3 startingPoint = new Vector3(float.Parse(playerPosition["x"].ToString().Replace("\"", "")), float.Parse(playerPosition["y"].ToString().Replace("\"", "")), float.Parse(playerPosition["z"].ToString().Replace("\"", "")));
                 player.transform.position = startingPoint;
                 agent.enabled = true;
-
-                
-
             }
         }
     }
 
+    public void RegisterPlayer()
+    {
+        Account account = new Account();
+        account.UserName = playerUN;
+        account.Hash = sGUID;
+        account.Positionx = startingL.x.ToString();
+        account.Positiony = startingL.y.ToString();
+        account.Positionz = startingL.z.ToString();
+        socket.Emit("playerRegister", new JSONObject(string.Format(@"{{""UserName"":""{0}"", ""Hash"":""{1}"", ""Positionx"":""{2}"", ""Positiony"":""{3}"", ""Positionz"":""{4}""}}", playerUN, sGUID, startingL.x.ToString(), startingL.y.ToString(), startingL.z.ToString())));
+    }
+
     public class Account
     {
-        public string AccountInt { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public string UserName { get; set; }
-        public string Email { get; set; }
+        public string Hash { get; set; }
+        public string Positionx { get; set; }
+        public string Positiony { get; set; }
+        public string Positionz { get; set; }
     }
 
     public class InventorySlot
@@ -177,6 +188,5 @@ public class PlayerCharacter : MonoBehaviour
         public string InvSlot { get; set; }
         public string ItemHash { get; set; }
         public string ItemStackInt { get; set; }
-
     }
 }

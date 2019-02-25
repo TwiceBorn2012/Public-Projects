@@ -1,30 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Spawner : MonoBehaviour
 {
     public GameObject playerPrefab;
-    Dictionary<string, GameObject> players = new Dictionary<string, GameObject>();
+    public List<Player> players = new List<Player>();
 
-    public GameObject SpawnPlayer(string id, string position)
+    public void SpawnPlayer(string hash, string username, Vector3 position)
     {
-        var player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        Player player = new Player();
+        var playerObj = Instantiate(playerPrefab, new Vector3(0f,0f,0f), Quaternion.identity) as GameObject;
+        playerObj.GetComponent<NavMeshAgent>().enabled = false;
+        playerObj.transform.position = position;
+        playerObj.GetComponent<NavMeshAgent>().enabled = true;
 
-        players.Add(id, player);
+        player.hash = hash;
+        player.username = username;
+        player.player = playerObj;
 
-        return player;
+        players.Add(player);
+        
+        Debug.Log("Other players in the World: " + players.Count);
     }
 
-    public GameObject FindPlayer(string id)
+    public Player FindPlayer(string hash)
     {
-        return players[id];
+        Player response = players.Find(r => r.hash  == hash);
+        return response;
     }
 
-    public void RemovePlayer(string id)
+    public void RemovePlayer(string hash)
     {
-        var player = players[id];
-        Destroy(player);
-        players.Remove(id);
+        GameObject obj = FindPlayer(hash).player;
+        Destroy(obj);
+        players.Remove(FindPlayer(hash));
+        
     }
+
+    public class Player
+    {
+        public string hash { get; set; }
+        public string username { get; set; }
+        public GameObject player { get; set; }
+    }
+    
 }

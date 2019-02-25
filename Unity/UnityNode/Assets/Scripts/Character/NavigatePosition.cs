@@ -11,7 +11,7 @@ public class NavigatePosition : MonoBehaviour
 
     public void Start()
     {
-        agent = GameObject.FindGameObjectWithTag("Player").GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     public void NavigatTo(Vector3 position)
