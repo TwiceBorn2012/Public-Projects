@@ -11,9 +11,11 @@ public class Network : MonoBehaviour
     public static SocketIOComponent socket;
 
     public GameObject playerPrefab;
+    public GameObject enemyPrefab;
     public GameObject myPlayer;
     private PlayerCharacter pc;
     public List<Player> players = new List<Player>();
+    public List<Enemy> enemies = new List<Enemy>();
     public string sGUID;
     public string playerUN;
 
@@ -24,16 +26,19 @@ public class Network : MonoBehaviour
         pc = myPlayer.GetComponent<PlayerCharacter>();
         socket.On("isConnected", isConnected);
         socket.On("spawn", OnSpawned);
+        socket.On("spawnEnemy", OnSpawnedEnemy);
         socket.On("move", OnMove);
         socket.On("disconnected", OnDisconnect);
         socket.On("requestPosition", OnRequestPosition);
+        socket.On("requestPositionEnemy", OnRequestPositionEnemy);
+        socket.On("requestStateEnemy", OnRequestStateEnemy);
+        socket.On("requestTargetEnemy", OnRequestTargetEnemy);
     }
 
     void OnMove(SocketIOEvent obj)
     {
         var position = new Vector3(GetFloatFromJSON(obj.data, "posX"), GetFloatFromJSON(obj.data, "posY"), GetFloatFromJSON(obj.data, "posZ"));
         var hash = obj.data["hash"].ToString();
-        Debug.Log(players);
         var player = FindPlayer(hash);
 
         var navPos = player.PlayerOBJ.GetComponent<NavigatePosition>();
@@ -90,6 +95,84 @@ public class Network : MonoBehaviour
         
     }
 
+    void OnSpawnedEnemy(SocketIOEvent e)
+    {
+
+        var x = float.Parse(e.data["posX"].ToString().Replace("\"", ""));
+        var y = float.Parse(e.data["posY"].ToString().Replace("\"", ""));
+        var z = float.Parse(e.data["posZ"].ToString().Replace("\"", ""));
+        Vector3 position = new Vector3(x, y, z);
+        string id = e.data["id"].ToString();
+        string name = e.data["name"].ToString();
+        string combatState = e.data["combatState"].ToString().Replace("\"", "");
+        Enemy enemy = new Enemy();
+
+        GameObject enemyObj = Instantiate(enemyPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+
+        enemyObj.GetComponent<NavMeshAgent>().enabled = false;
+        enemyObj.transform.position = position;
+        enemyObj.GetComponent<NavMeshAgent>().enabled = true;
+
+        enemy.Id = id;
+        enemy.Name = name;
+        enemy.EnemyOBJ = enemyObj;
+        enemy.CombatState = combatState;
+
+        enemies.Add(enemy);
+
+        enemyObj.GetComponent<TurtleAI>().SetID(id);
+        enemyObj.GetComponent<TurtleAI>().SetAggrod(combatState);
+    }
+
+    void OnRequestPositionEnemy(SocketIOEvent e)
+    {
+
+        var x = float.Parse(e.data["posX"].ToString().Replace("\"", ""));
+        var y = float.Parse(e.data["posY"].ToString().Replace("\"", ""));
+        var z = float.Parse(e.data["posZ"].ToString().Replace("\"", ""));
+        Vector3 position = new Vector3(x, y, z);
+        string id = e.data["id"].ToString();
+        string name = e.data["name"].ToString();
+
+        Enemy enemy = FindEnemy(id);
+
+        GameObject enemyObj = enemy.EnemyOBJ;
+
+        enemyObj.GetComponent<TurtleAI>().MoveTo(position);
+
+    }
+
+    void OnRequestStateEnemy(SocketIOEvent e)
+    {
+        string id = e.data["id"].ToString();
+        string state = e.data["combatState"].ToString().Replace("\"", "");
+
+        Enemy enemy = FindEnemy(id);
+
+        GameObject enemyObj = enemy.EnemyOBJ;
+
+        enemyObj.GetComponent<TurtleAI>().SetAggrod(state);
+
+    }
+
+    void OnRequestTargetEnemy(SocketIOEvent e)
+    {
+
+        var x = float.Parse(e.data["posX"].ToString().Replace("\"", ""));
+        var y = float.Parse(e.data["posY"].ToString().Replace("\"", ""));
+        var z = float.Parse(e.data["posZ"].ToString().Replace("\"", ""));
+        Vector3 position = new Vector3(x, y, z);
+        string id = e.data["id"].ToString();
+        string name = e.data["name"].ToString();
+
+        Enemy enemy = FindEnemy(id);
+
+        GameObject enemyObj = enemy.EnemyOBJ;
+
+        enemyObj.GetComponent<TurtleAI>().MoveTo(position);
+
+    }
+
     public static float GetFloatFromJSON(JSONObject data, string key)
     {
         return float.Parse(data[key].ToString().Replace("\"", ""));
@@ -115,11 +198,39 @@ public class Network : MonoBehaviour
 
     }
 
+    public Enemy FindEnemy(string hash)
+    {
+        Enemy response = enemies.Find(r => r.Id == hash);
+
+        return response;
+    }
+
+    public void RemoveEnemy(string hash)
+    {
+        GameObject obj = FindEnemy(hash).EnemyOBJ;
+        Destroy(obj);
+        enemies.Remove(FindEnemy(hash));
+
+    }
+
     public class Player
     {
         public string Hash { get; set; }
         public string Username { get; set; }
         public GameObject PlayerOBJ { get; set; }
+    }
+
+    public class Enemy
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public GameObject EnemyOBJ { get; set; }
+        public string PosX { get; set; }
+        public string PosY { get; set; }
+        public string PosZ { get; set; }
+        public string MaxHealth { get; set; }
+        public string CurrentHealth { get; set; }
+        public string CombatState { get; set; }
     }
 
 }

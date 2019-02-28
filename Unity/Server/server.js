@@ -36,14 +36,18 @@ var Resource = {
 
 var Enemy = {
 
-    init: function (id, isInCombat, resCharge, maxCharge, positionx, positiony, positionz) {
+    init: function (id, name,  combatState, resCharge, maxCharge, positionx, positiony, positionz, spositionx, spositiony, spositionz) {
         this.id = id;
-        this.isInCombat = isInCombat;
+        this.name = name;
+        this.combatState = combatState;
         this.resCharge = resCharge;
         this.maxCharge = maxCharge;
         this.positionx = positionx;
         this.positiony = positiony;
         this.positionz = positionz;
+        this.spositionx = spositionx;
+        this.spositiony = spositiony;
+        this.spositionz = spositionz;
     }
 };
 
@@ -63,29 +67,40 @@ for( var i = 0; i < turtles.length; i++){
 
     var enemy = Object.create(Enemy);
     // Loads enemies into Array in the A state which is alive
-    enemy.init(thisTurtle.name, "0", "A", thisTurtle.maxCharge, thisTurtle.spawnPointx, thisTurtle.spawnPointy, thisTurtle.spawnPointz);
+    enemy.init(i, thisTurtle.name, "Server", "A", thisTurtle.maxCharge, thisTurtle.spawnPointx, thisTurtle.spawnPointy, thisTurtle.spawnPointz, thisTurtle.spawnPointx, thisTurtle.spawnPointy, thisTurtle.spawnPointz);
     enemies.push(enemy);
-
+    
 }
 
-console.log(enemies);
 
 setInterval(function () {
     
     for( var i = 0; i < enemies.length; i++){ 
     
-        console.log(enemies[i].name);
+        var thisTurtle = enemies[i];
         
-    // Each second, check the resCharge for each enemy
-    // If enemy's resCharge = Max charge,
-    // Get enemy's info from JSON for starting position OR get it from Array
-    // Spawn enemy in starting position, change resCharge to "A"
-    
-    //for( var i = 0; i < turtles.length; i++){ 
         
-    //}
+        if(thisTurtle.combatState == 'Server'){
+            
+            var pos = RandomTurtleMovement();
+            
+            var newX = parseFloat(thisTurtle.positionx) + parseFloat(pos[0]);
+            var newY = parseFloat(thisTurtle.positiony) + parseFloat(pos[1]);
+            var newZ = parseFloat(thisTurtle.positionz) + parseFloat(pos[2]);
+            
+            thisTurtle.positionx = newX;
+            thisTurtle.positiony = newY;
+            thisTurtle.positionz = newZ;
+            
+            
     
-}, 1000)
+            // socket broadcast Emit new positions for each enemy full Array 
+        }        
+    }
+    
+}, 5000)
+ 
+
 
 
 
@@ -129,8 +144,60 @@ io.on('connection', function (socket){
         
         // Get array for enemies
         
-        // Spawn each enemy at current position
+        var enemiesArray = enemies;
+        
+        for( var i = 0; i < enemiesArray.length; i++){ 
+        
+            // if the enemy value for resCharge is "A",
+            // spawn the enemy at its position
+            var e = enemiesArray[i]
+            if(e.resCharge == "A"){
+                socket.emit('spawnEnemy', { id: e.id, name: e.name, combatState: e.combatState, posX: e.positionx, posY: e.positiony, posZ: e.positionz });
+            }
+            
+        }
+        
     })
+    
+    socket.on('requestStateEnemy', function(data){
+        var turtleID = data['id'];
+        var e = enemies[turtleID];
+        socket.emit('requestStateEnemy', { id: e.id, name: e.name, combatState: e.combatState, posX: e.positionx, posY: e.positiony, posZ: e.positionz });
+    })
+    
+    socket.on('requestPositionEnemy', function(data){
+        var turtleID = data['id'];
+        var e = enemies[turtleID];
+        socket.emit('requestPositionEnemy', { id: e.id, name: e.name, combatState: e.combatState, posX: e.positionx, posY: e.positiony, posZ: e.positionz });
+    })
+    
+    socket.on('requestTargetEnemy', function(data){
+        var turtleID = data['id'];
+        var e = enemies[turtleID];
+        socket.emit('requestTargetEnemy', { id: e.id, name: e.name, combatState: e.combatState, posX: e.positionx, posY: e.positiony, posZ: e.positionz });
+    })
+    
+    socket.on('updatePositionEnemy', function(data){
+        var turtleID = data['id'];
+        var e = enemies[turtleID];
+        e.positionx = data['posX'];
+        e.positiony = data['posY'];
+        e.positionz = data['posZ'];
+        
+    })
+    
+    socket.on('updateStateEnemy', function(data){
+        var turtleID = data['id'];
+        var e = enemies[turtleID];
+        e.combatState = 'Aggro';
+    })
+    
+    socket.on('updateTargetEnemy', function(data){
+        var turtleID = data['id'];
+        var e = enemies[turtleID];
+
+    })
+    
     
     socket.on('addPlayerItemToInv', function (data) {
         Request('http://btsdev.azurewebsites.net/WebService.asmx/AddItemToPlayerInventory?itemHash=' + data['id'] + '&sGUID=' + data['sGUID'], { json: true }, (err, res, body) => {
@@ -171,3 +238,46 @@ io.on('connection', function (socket){
         console.log("Players connected count: " + players.length);
     })
 })
+
+function RandomTurtleMovement(){
+    
+    var i = getRandomInt(5);
+    
+    var pos = new Array;
+    
+    if (i == 0){
+        pos.push("0");
+        pos.push("0");
+        pos.push("0");
+        return pos
+    }
+    if (i == 1){
+        pos.push("2");
+        pos.push("0");
+        pos.push("0");
+        return pos
+    }
+    if (i == 2){
+        pos.push("-2");
+        pos.push("0");
+        pos.push("0");
+        return pos
+    }
+    if (i == 3){
+        pos.push("0");
+        pos.push("0");
+        pos.push("2");
+        return pos
+    }
+    if (i == 4){
+        pos.push("0");
+        pos.push("0");
+        pos.push("-2");
+        return pos
+    }
+ 
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}

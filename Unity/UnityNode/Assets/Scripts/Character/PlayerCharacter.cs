@@ -24,6 +24,7 @@ public class PlayerCharacter : MonoBehaviour
     private string sGUID;
     private string playerUN;
     private Vector3 startingL;
+    private bool isInCombat = false;
 
     void Start()
     {
@@ -173,6 +174,8 @@ public class PlayerCharacter : MonoBehaviour
         account.Positionz = startingL.z.ToString();
         socket.Emit("playerRegister", new JSONObject(string.Format(@"{{""UserName"":""{0}"", ""Hash"":""{1}"", ""Positionx"":""{2}"", ""Positiony"":""{3}"", ""Positionz"":""{4}""}}", playerUN, sGUID, startingL.x.ToString(), startingL.y.ToString(), startingL.z.ToString())));
     }
+
+
 
     public class Account
     {

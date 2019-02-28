@@ -2,31 +2,35 @@
     "turtles":[
         {
             "name": "Leo",
+            "name": "Leo",
             "maxCharge" : "10",
-            "spawnPointx": "0.0",
-            "spawnPointy": "0.0",
-            "spawnPointz": "2.0"
+            "spawnPointx": "-20.0",
+            "spawnPointy": "10.0",
+            "spawnPointz": "-18.0"
         },
         {
             "name": "Ralph",
+            "name": "Ralph",
             "maxCharge" : "10",
-            "spawnPointx": "0.0",
-            "spawnPointy": "0.0",
-            "spawnPointz": "-2.0"
+            "spawnPointx": "-20.0",
+            "spawnPointy": "10.0",
+            "spawnPointz": "-22.0"
         },
         {
             "name": "Don",
+            "name": "Don",
             "maxCharge" : "10",
-            "spawnPointx": "-2.0",
-            "spawnPointy": "0.0",
-            "spawnPointz": "0.0"
+            "spawnPointx": "-18.0",
+            "spawnPointy": "10.0",
+            "spawnPointz": "-20.0"
         },
         {
             "name": "Mike",
+            "name": "Mike",
             "maxCharge" : "10",
-            "spawnPointx": "2.0",
-            "spawnPointy": "0.0",
-            "spawnPointz": "0.0"
+            "spawnPointx": "-22.0",
+            "spawnPointy": "10.0",
+            "spawnPointz": "-20.0"
         }
     ]
 }
