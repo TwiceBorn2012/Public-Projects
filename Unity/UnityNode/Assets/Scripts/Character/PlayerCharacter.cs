@@ -31,7 +31,7 @@ public class PlayerCharacter : MonoBehaviour
         sGUID = GetComponent<NetworkEntity>().GetSGUID();
         playerUN = GetComponent<NetworkEntity>().GetPlayerUN();
         startingL = GetComponent<NetworkEntity>().GetPlayerSP();
-
+        StartingMenuClose();
         UpdateInventory();
         GetPlayerStartPosition();
 
@@ -46,6 +46,14 @@ public class PlayerCharacter : MonoBehaviour
             UpdatePosition();
             timer = 0.0f;
         }
+    }
+
+    public void StartingMenuClose()
+    {
+        Debug.Log("Tried to Close Menu");
+        GameObject menuUI = GameObject.FindGameObjectWithTag("OpenMenuUI").gameObject;
+
+        menuUI.gameObject.SetActive(false); // .GetComponent<RectTransform>().localScale = new Vector3(0, 0, 0);
     }
 
     public void AddPlayerItemToInv (string gameItem)
@@ -154,7 +162,7 @@ public class PlayerCharacter : MonoBehaviour
             else
             {
                 JSONObject playerPosition = new JSONObject(webRequest.downloadHandler.text);
-
+                //Debug.Log("Player Start Position: " + playerPosition);
                 NavMeshAgent agent = player.GetComponent<NavMeshAgent>();
                 agent.enabled = false;
                 Vector3 startingPoint = new Vector3(float.Parse(playerPosition["x"].ToString().Replace("\"", "")), float.Parse(playerPosition["y"].ToString().Replace("\"", "")), float.Parse(playerPosition["z"].ToString().Replace("\"", "")));

@@ -8,6 +8,8 @@ TagManager:
   - MineRock
   - Player Camera
   - Network
+  - OpenMenuUI
+  - MenuButtons
   layers:
   - Default
   - TransparentFX

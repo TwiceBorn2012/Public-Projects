@@ -46,14 +46,16 @@ public class GameManager : MonoBehaviour
                 netEnt.GetComponent<NetworkEntity>().UpdatePlayerUN(response["UserName"].ToString());
                 Debug.Log("Welcome " + response["UserName"].ToString() + "!");
                 netEnt.GetComponent<NetworkEntity>().UpdatePlayerSP(new Vector3(float.Parse(response["Positionx"].ToString().Replace("\"", "")), float.Parse(response["Positiony"].ToString().Replace("\"", "")), float.Parse(response["Positionz"].ToString().Replace("\"", ""))));
-                GoToScene();
+                GoToScene(1);
 
             }
         }
     }
 
-    public void GoToScene ()
+    public void GoToScene (int sceneID)
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(sceneID);
+        //Close Menu
+        
     }
 }
