@@ -29,8 +29,18 @@ public class ClickResource : MonoBehaviour, IClickable
     {
         isMoving = true;
         yield return new WaitUntil(() => isMoving == false);
-        anim.SetTrigger("MineTrigger");
-        var script = rock.GetComponent<copperRockBehavior>();
+
+        // If statement for equipment
+
+        // if not - exit
+
+
+        // If statement for stats
+
+        // if not - exit
+
+        anim.SetTrigger("MineTrigger"); // Maybe not here - Maybe here?
+        var script = rock.GetComponent<copperRockBehavior>(); // All rock behavior
         script.MineRock(player);
         
     }

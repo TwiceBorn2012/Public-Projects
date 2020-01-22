@@ -183,7 +183,7 @@ public class PlayerCharacter : MonoBehaviour
         socket.Emit("playerRegister", new JSONObject(string.Format(@"{{""UserName"":""{0}"", ""Hash"":""{1}"", ""Positionx"":""{2}"", ""Positiony"":""{3}"", ""Positionz"":""{4}""}}", playerUN, sGUID, startingL.x.ToString(), startingL.y.ToString(), startingL.z.ToString())));
     }
 
-
+    // Character Stats - copied to server
 
     public class Account
     {

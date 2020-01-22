@@ -34,7 +34,7 @@ public class copperRockBehavior : MonoBehaviour
 
         
         // ON success
-        if(charges > 0)
+        if (charges > 0)
         {
             charges--;
             CheckCharges();

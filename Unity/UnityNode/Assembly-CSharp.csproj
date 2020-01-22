@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\Enemies\TurtleAI.cs" />
     <Compile Include="Assets\Scripts\Environment\ClickMove.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\GeneralProperties.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IClickable.cs" />
     <Compile Include="Assets\Scripts\Menus\MenuControls.cs" />
     <Compile Include="Assets\Scripts\Resources\ClickResource.cs" />
