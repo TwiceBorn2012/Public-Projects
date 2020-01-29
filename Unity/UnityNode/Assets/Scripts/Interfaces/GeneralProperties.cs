@@ -12,8 +12,15 @@ using System;
 
 public class GeneralProperties : MonoBehaviour
 {
+    public GameObject player;
+    public SocketIOComponent socket;
+    private string sGUID;
+    public Stats playerStats;
+
     void Start()
     {
+        sGUID = GetComponent<NetworkEntity>().GetSGUID();
+        GetPlayerStats();
         // Pull on start
         // Derive on start
         // Fill UtilityEquipment
@@ -25,12 +32,12 @@ public class GeneralProperties : MonoBehaviour
         // Maybe nothing
     }
 
-    public void UpdateInventory()
+    public void GetPlayerStats()
     {
-        //StartCoroutine(UpdateInventroyReq("http://btsdev.azurewebsites.net/WebService.asmx/UpdatePlayerInventory?sGUID=" + sGUID));
+        StartCoroutine(GetPlayerStatsReq("http://btsdev.azurewebsites.net/WebService.asmx/GetPlayerStats?sGUID=" + sGUID));
     }
 
-    IEnumerator UpdateInventroyReq(string uri)
+    IEnumerator GetPlayerStatsReq(string uri)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
@@ -47,6 +54,9 @@ public class GeneralProperties : MonoBehaviour
             {
                 string response = webRequest.downloadHandler.text.ToString();
                 JSONObject top = new JSONObject(response.TrimStart('"').TrimEnd('"'));
+
+                Debug.Log(top);
+
                 //for (int i = 0; i < 40; i++)
                 //{
                 //    JSONObject test = new JSONObject(top[i].ToString().Substring(11, top[i].ToString().Length - 12));
@@ -105,7 +115,7 @@ public class GeneralProperties : MonoBehaviour
         public int Tailoring { get; set; }
         public int Imbuing { get; set; }
         public int Construction { get; set; }
-        public int Fletching { get; set; }
+        public int Carpentry { get; set; }
         public int Alchemy { get; set; }
     }
 
