@@ -16,6 +16,8 @@ public class GeneralProperties : MonoBehaviour
     public SocketIOComponent socket;
     private string sGUID;
     public Stats playerStats;
+    public Gathering playerGathering;
+    public Skills playerSkills;
 
     void Start()
     {
@@ -53,36 +55,30 @@ public class GeneralProperties : MonoBehaviour
             else
             {
                 string response = webRequest.downloadHandler.text.ToString();
+
                 JSONObject top = new JSONObject(response.TrimStart('"').TrimEnd('"'));
 
-                Debug.Log(top);
+                playerStats.Maxhits = Int32.Parse(top["MaxHits"].ToString());
+                playerStats.Currenthits = Int32.Parse(top["CurrentHit"].ToString());
+                playerStats.Strength = Int32.Parse(top["Strength"].ToString());
+                playerStats.Dexterity = Int32.Parse(top["Strength"].ToString());
+                playerStats.Intelligence = Int32.Parse(top["Strength"].ToString());
+                playerStats.Spirit = Int32.Parse(top["Strength"].ToString());
 
-                //for (int i = 0; i < 40; i++)
-                //{
-                //    JSONObject test = new JSONObject(top[i].ToString().Substring(11, top[i].ToString().Length - 12));
-                //    if (test[1].ToString().TrimStart('"').TrimEnd('"').Length > 0)
-                //    {
-                //        GameObject target = canvas.transform.GetChild(0).GetChild(i).gameObject;
-                //        GameObject slotObj = Instantiate(copperOrderPrfab, canvas.transform);
-                //        slotObj.transform.SetParent(target.transform, false);
-                //    }
-                //}
+                playerGathering.Mining = Int32.Parse(top["Strength"].ToString());
+                playerGathering.Farming = Int32.Parse(top["Strength"].ToString());
+                playerGathering.Fishing = Int32.Parse(top["Strength"].ToString());
+                playerGathering.Woodcutting = Int32.Parse(top["Strength"].ToString());
+                playerGathering.Hunting = Int32.Parse(top["Strength"].ToString());
 
-
-
-
-                //playerInventory = JsonConvert.DeserializeObject<List<InventorySlot>>(response);
-
-                //for (int i = 0; i < 40; i++)
-                //{
-                //    if (playerInventory[i].ItemHash.Length > 0)
-                //    {
-                //        GameObject target = canvas.transform.GetChild(0).GetChild(i).gameObject;
-                //        GameObject slotObj = Instantiate(copperOrderPrfab, canvas.transform);
-                //        slotObj.transform.SetParent(target.transform, false);
-                //    }
-
-                //}
+                playerSkills.Cooking = Int32.Parse(top["Strength"].ToString());
+                playerSkills.Smithing = Int32.Parse(top["Strength"].ToString());
+                playerSkills.Leatherworking = Int32.Parse(top["Strength"].ToString());
+                playerSkills.Tailoring = Int32.Parse(top["Strength"].ToString());
+                playerSkills.Imbuing = Int32.Parse(top["Strength"].ToString());
+                playerSkills.Construction = Int32.Parse(top["Strength"].ToString());
+                playerSkills.Carpentry = Int32.Parse(top["Strength"].ToString());
+                playerSkills.Alchemy = Int32.Parse(top["Strength"].ToString());
 
             }
         }
